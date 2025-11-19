@@ -1,9 +1,10 @@
+import inputs from "../constans/inputs";
 import { useState } from "react";
 import ContactList from "./ContactList";
 
 function Contacts() {
   const [Contacts, setContacts] = useState([]);
-
+  const [Alert, setAlert] = useState("");
   const [Contact, setContact] = useState({
     Name: "",
     LastName: "",
@@ -18,8 +19,19 @@ function Contacts() {
   };
 
   const addHandler = () => {
-    setContacts((Contacts) => [...Contacts, Contact]);
+    console.log("Current Contact:", Contact);
+    if (
+      !Contact.Name ||
+      !Contact.LastName ||
+      !Contact.Email ||
+      !Contact.Phone
+    ) {
+      setAlert("Please enter valid data!");
+      return;
+    }
+    setAlert("nule");
 
+    setContacts((Contacts) => [...Contacts, Contact]);
     setContact({
       Name: "",
       LastName: "",
@@ -31,36 +43,19 @@ function Contacts() {
   return (
     <div>
       <div>
-        <input
-          type="text"
-          placeholder="Name"
-          value={Contact.Name}
-          name="Name"
-          onChange={changeHandler}
-        />
-        <input
-          type="text"
-          placeholder="Last Name"
-          value={Contact.LastName}
-          name="LastName"
-          onChange={changeHandler}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={Contact.Email}
-          name="Email"
-          onChange={changeHandler}
-        />
-        <input
-          type="number"
-          placeholder="phone"
-          value={Contact.Phone}
-          name="Phone"
-          onChange={changeHandler}
-        />
+        {inputs.map((input, index) => (
+          <input
+            key={index}
+            type={input.type}
+            name={input.name}
+            placeholder={input.placeholder}
+            value={Contact[input.name]}
+            onChange={changeHandler}
+          />
+        ))}
         <button onClick={addHandler}>Add Contact</button>
       </div>
+      <div>{Alert && <p>{Alert}</p>}</div>
       <ContactList contacts={Contacts} />
     </div>
   );
