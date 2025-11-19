@@ -1,6 +1,5 @@
-import Contact from "./components/Contact"
 import Header from "./components/Header"
-
+import Contacts from "./components/Contacts"
 
 function App() {
 
@@ -8,7 +7,7 @@ function App() {
     <>
     
     <Header/>
-    <Contact/>
+    <Contacts/>
 
     </>
   )
