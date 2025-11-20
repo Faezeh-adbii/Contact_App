@@ -13,6 +13,16 @@ function Contacts() {
     Email: "",
     Phone: "",
   });
+
+
+   //deleteHandler
+  const deleteHandler =(id)=>{
+    const newContacts = Contacts.filter( (Contact) => Contact.id !== id  );
+    setContacts(newContacts);
+  };
+
+
+
   const changeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -58,7 +68,7 @@ function Contacts() {
         <button onClick={addHandler}>Add Contact</button>
       </div>
       <div>{Alert && <p>{Alert}</p>}</div>
-      <ContactsList contacts={Contacts} />
+      <ContactsList contacts={Contacts}  deleteHandler ={deleteHandler} />
     </div>
   );
 }
