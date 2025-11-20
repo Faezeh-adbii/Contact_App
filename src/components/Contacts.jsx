@@ -2,8 +2,12 @@ import inputs from "../constans/inputs";
 import { useState } from "react";
 import ContactsList from "./ContactsList";
 import { v4 } from "uuid";
+import styles from "./Contacts.module.css";
 
 function Contacts() {
+
+  //state
+
   const [Contacts, setContacts] = useState([]);
   const [Alert, setAlert] = useState("");
   const [Contact, setContact] = useState({
@@ -15,14 +19,13 @@ function Contacts() {
   });
 
 
-   //deleteHandler
-  const deleteHandler =(id)=>{
-    const newContacts = Contacts.filter( (Contact) => Contact.id !== id  );
+  //deleteHandler
+  const deleteHandler = (id) => {
+    const newContacts = Contacts.filter((Contact) => Contact.id !== id);
     setContacts(newContacts);
   };
 
-
-
+  //changeHandler
   const changeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -30,6 +33,7 @@ function Contacts() {
     setContact((Contact) => ({ ...Contact, [name]: value }));
   };
 
+  //addhandler
   const addHandler = () => {
     console.log("Current Contact:", Contact);
     if (
@@ -42,7 +46,7 @@ function Contacts() {
       return;
     }
     setAlert("");
-    const newContact ={...Contact , id:v4()}
+    const newContact = { ...Contact, id: v4() };
     setContacts((Contacts) => [...Contacts, newContact]);
     setContact({
       Name: "",
@@ -52,9 +56,12 @@ function Contacts() {
     });
   };
 
+
+  //Html , Css
+
   return (
-    <div>
-      <div>
+    <div className={styles.container}>
+      <div className={styles.form}>
         {inputs.map((input, index) => (
           <input
             key={index}
@@ -67,8 +74,8 @@ function Contacts() {
         ))}
         <button onClick={addHandler}>Add Contact</button>
       </div>
-      <div>{Alert && <p>{Alert}</p>}</div>
-      <ContactsList contacts={Contacts}  deleteHandler ={deleteHandler} />
+      <div className={styles.alert}>{Alert && <p>{Alert}</p>}</div>
+      <ContactsList contacts={Contacts} deleteHandler={deleteHandler} />
     </div>
   );
 }
