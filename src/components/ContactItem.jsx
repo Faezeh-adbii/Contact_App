@@ -1,7 +1,7 @@
+import styles from "./ContactItem.module.css"
 function ContactItem({data:{id , Name , LastName , Email , Phone } , deleteHandler}) {
-
   return (
-    <li key={id}>
+    <li className={styles.item}>
       <p>
         {Name}{LastName}
       </p>
